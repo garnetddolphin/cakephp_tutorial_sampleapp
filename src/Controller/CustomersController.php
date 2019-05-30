@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
 
 class CustomersController extends AppController
 {
@@ -22,10 +23,13 @@ class CustomersController extends AppController
 		$this->set('customers',$this->Customers->find('all'));
 	}
 
-	public function view($id)
+	public function view($id = null)
 	{
 		$customer = $this->Customers->get($id);
 		$this->set(compact('customer'));
+
+		$requests = TableRegistry::get('Requests');
+		$this->set('requests',$requests->find('all'));
 	}
 
 	public function add()
